@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/Задание/cw-ip-213_hangman2",
-      "program": "e:/Задание/cw-ip-213_hangman2/build/Debug/outDebug",
+      "cwd": "e:/git/cw-ip-213_hangman2",
+      "program": "e:/git/cw-ip-213_hangman2/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
