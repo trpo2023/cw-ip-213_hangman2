@@ -1,5 +1,3 @@
-#define CTEST_MAIN
-#include "ctest.h"
 #include "hangman.h"
 #include <stdio.h>
 #include <stdlib.h>
