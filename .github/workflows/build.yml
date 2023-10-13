@@ -1,5 +1,4 @@
 name: Build
-
 on:
   push:
     branches:
@@ -10,17 +9,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+          
+    - name: Check codestyle
+      run: |
+        git ls-files *.{c,h} | xargs clang-format -i --verbose
+        git diff --exit-code
 
-    - name: Set up build environment
-      run: sudo apt-get install -y build-essential
-
-    - name: Build project
+    - name: Build application
       run: make
-
+    - name: Build test
+      run: make tests
+        
+    
+      
     - name: Run tests
-      run: make test
+      run: ./bin/tests
