@@ -1,14 +1,17 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-main: main.o hangman.o
-    $(CC) $(CFLAGS) -o main main.o hangman.o
-
-main.o: main.c hangman.h
-    $(CC) $(CFLAGS) -c main.c
+hangman: hangman.o main.o ctest.o
+    $(CC) $(CFLAGS) $^ -o $@
 
 hangman.o: hangman.c hangman.h
-    $(CC) $(CFLAGS) -c hangman.c
+    $(CC) $(CFLAGS) -c $< -o $@
+
+main.o: main.c hangman.h
+    $(CC) $(CFLAGS) -c $< -o $@
+
+ctest.o: ctest.c hangman.h
+    $(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-    rm -f main main.o hangman.o
+    rm -f hangman hangman.o main.o ctest.o
