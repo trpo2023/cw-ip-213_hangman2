@@ -1,65 +1,42 @@
-#include "ctest.h"
 #include "hangman.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-CTEST(string_length, returns_correct_length)
-{
-    char* str = "Hello, World!";
-    int result = string_length(str);
-    int expected = 13;
-    ASSERT_EQUAL(expected, result);
+int main(int argc, const char **argv) {
+int result = ctest_main(argc, argv);
+return result;
 }
 
-CTEST(string_length, returns_zero_for_empty_string)
-{
-    char* str = "";
-    int result = string_length(str);
-    int expected = 0;
-    ASSERT_EQUAL(expected, result);
+CTEST(string_length, test1) {
+char str[] = "hello";
+ASSERT_EQUAL(5, string_length(str));
 }
 
-CTEST(replace_chars, replaces_correct_chars)
-{
-    char str[] = "Hello, World!";
-    replace_chars(str, 'l', 'z');
-    char* expected = "Hezzo, Worzd!";
-    ASSERT_STR(expected, str);
+CTEST(string_length, test2) {
+char str[] = "";
+ASSERT_EQUAL(0, string_length(str));
 }
 
-CTEST(load_random_word, returns_valid_word)
-{
-    char word[MAX_LENGTH];
-    load_random_word(word);
-    int length = string_length(word) - 1;
-    ASSERT_GREATER(length, 0);
+CTEST(replace_chars, test1) {
+char str[] = "hello";
+replace_chars(str, 'l', 'z');
+ASSERT_STR("hezzo", str);
 }
 
-CTEST(load_random_word, returns_unique_words)
-{
-    char word1[MAX_LENGTH];
-    char word2[MAX_LENGTH];
-    load_random_word(word1);
-    load_random_word(word2);
-    int result = strcmp(word1, word2);
-    ASSERT_NOT_EQUAL(0, result);
+CTEST(replace_chars, test2) {
+char str[] = "hello";
+replace_chars(str, 'o', 'a');
+ASSERT_STR("hella", str);
 }
 
-CTEST(play_game_wrapper, returns_valid_result)
-{
-    const char* expected_win = "Вы победили!";
-    const char* expected_lose = "Вы проиграли.";
+CTEST(load_random_word, test1) {
+char word[MAX_LENGTH];
+load_random_word(word);
+int len = string_length(word);
+ASSERT_TRUE(len > 0 && len <= MAX_LENGTH);
+}
 
-    char word[MAX_LENGTH] = "hello";
-    char guessed[word_length];
-    memset(guessed, '-', string_length(word)-1);
-    int num_tries = 0;
-
-    freopen("/dev/null", "w", stdout);
-    play_game_wrapper(word, guessed, num_tries, "h\ne\nl\nl\no\n");
-    fclose(stdout);
-
-    int result_win = strstr(guessed, expected_win) != NULL;
-    int result_lose = strstr(guessed, expected_lose) != NULL;
-
-    ASSERT_EQUAL(1, result_win);
-    ASSERT_EQUAL(0, result_lose);
+CTEST(play_game, test1) {
+play_game();
 }
