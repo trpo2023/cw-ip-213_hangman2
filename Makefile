@@ -1,37 +1,21 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c99
-TEST_DIR = test
-BIN_DIR = bin
-OBJ_DIR = obj
+CFLAGS = -c -Wall
+MAIN_BUILD = main.o hangman.o
+TEST_BUILD = main.o hangman.o ctest.o
 
-all: $(BIN_DIR)/game
+main: $(MAIN_BUILD)
+	$(CC) $^ -o $@
+	./main
 
-$(BIN_DIR)/game: $(OBJ_DIR)/main.o $(OBJ_DIR)/hangman.o
-	mkdir -p $(BIN_DIR)
-	$(CC) $(OBJ_DIR)/main.o $(OBJ_DIR)/hangman.o -o $(BIN_DIR)/game 
+test: $(TEST_BUILD)
+	$(CC) $^ -o $@
+	./test
 
-$(OBJ_DIR)/main.o: main.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c main.c -o $(OBJ_DIR)/main.o
+%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
-$(OBJ_DIR)/hangman.o: hangman.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c hangman.c -o $(OBJ_DIR)/hangman.o
-
-$(OBJ_DIR)/ctest.o: ctest.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CXXFLAGS) -c ctest.c -o $(OBJ_DIR)/ctest.o
-
-$(BIN_DIR)/tests: $(OBJ_DIR)/ctest.o $(OBJ_DIR)/hangman.o
-	mkdir -p $(BIN_DIR)
-
-tests: $(BIN_DIR)/tests
-
-run: $(BIN_DIR)/game
-	./$(BIN_DIR)/game
-
-run_tests: $(BIN_DIR)/tests
-	./$(BIN_DIR)/tests
+%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR) 
+	rm -f * * * | grep -v .keep
