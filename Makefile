@@ -1,21 +1,29 @@
 CC = gcc
 CFLAGS = -c -Wall
-MAIN_BUILD = main.o hangman.o
-TEST_BUILD = test/main1.o test/ctest.o hangman.o
+SRC_DIR = src
+TEST_DIR = test
+BUILD_DIR = build
+BIN_DIR = bin
+MAIN_BUILD = build/src/main.o build/src/hangman.o
+TEST_BUILD = build/test/main.o build/test/ctest.o build/test/hangman.o
 
-main: $(MAIN_BUILD)
+main: $(BIN_DIR)/main
+
+test: $(BIN_DIR)/test
+
+$(BIN_DIR)/main: $(MAIN_BUILD)
 	$(CC) $^ -o $@
-	./main
+	./$(BIN_DIR)/main
 
-test: $(TEST_BUILD)
+$(BIN_DIR)/test: $(TEST_BUILD)
 	$(CC) $^ -o $@
-	./test
+	./$(BIN_DIR)/test
 
-%.o: %.c
+$(BUILD_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
-test/%.o: %.c
+$(BUILD_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f * * * | grep -v .keep
+	rm -f $(BUILD_DIR)/$(TEST_DIR)/* $(BUILD_DIR)/$(SRC_DIR)/* $(BIN_DIR)/* | grep -v .keep
