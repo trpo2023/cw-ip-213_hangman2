@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -c -Wall
 MAIN_BUILD = main.o hangman.o
-TEST_BUILD = main.o hangman.o ctest.o
+TEST_BUILD = test/main.o hangman.o test/ctest.o
 
 main: $(MAIN_BUILD)
 	$(CC) $^ -o $@
