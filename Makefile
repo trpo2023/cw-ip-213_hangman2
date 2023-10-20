@@ -14,5 +14,8 @@ test: $(TEST_BUILD)
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
+test/%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
+
 clean:
 	rm -f * * * | grep -v .keep
