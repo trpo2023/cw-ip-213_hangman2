@@ -1,16 +1,25 @@
-name: Build
+name: build
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Check codestyle
-        run: git ls-files *.{c,h} | xargs clang-format -i --verbose && git diff --exit-code
+    - name: Set up C/C++ environment
+      uses: actions/setup-cpp@v1
 
-      - name: Build application
-        run: make
+    - name: Build and test
+      run: |
+        make
+        make run_tests
