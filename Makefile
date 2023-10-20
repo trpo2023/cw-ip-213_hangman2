@@ -5,7 +5,7 @@ TEST_DIR = test
 BUILD_DIR = build
 BIN_DIR = bin
 MAIN_BUILD = build/src/main.o build/src/hangman.o
-TEST_BUILD = build/test/main.o build/test/ctest.o build/test/hangman.o
+TEST_BUILD = build/test/main.o build/test/ctest.o build/src/hangman.o
 
 main: $(BIN_DIR)/main
 
