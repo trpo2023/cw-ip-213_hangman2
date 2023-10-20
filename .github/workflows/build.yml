@@ -16,9 +16,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up C/C++ environment
-      uses: actions/setup-cpp@v1
-
     - name: Build and test
       run: |
         make
