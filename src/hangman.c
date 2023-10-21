@@ -74,7 +74,7 @@ void replace_chars(char* string, char find, char replace) {
 }
 
 void load_random_word(char* word) {
-    FILE* file = fopen("../words.txt", "r");
+    FILE* file = fopen("words.txt", "r");
 
     if (file == NULL) {
         printf("Ошибка загрузки файла со словами.\n");
